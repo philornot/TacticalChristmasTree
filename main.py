@@ -10,7 +10,7 @@ from settings import PROJECT_NAME, PROJECT_VERSION, ICON_PATH
 from translations import TRANSLATIONS
 from tree_drawer import TreeDrawer
 from ui_components import UIComponents
-from update_checker import check_for_updates
+from update_checker import check_for_updates, install_update
 
 # Initialize logger
 logger = NiceLogger(__name__).get_logger()
@@ -24,6 +24,7 @@ class TacticalChristmasTree:
             self.root = tk.Tk()
             self.root.title(TRANSLATIONS['en']['window_title'])
             self.root.geometry("800x800")
+            self.update_installer_path = None  # Store path to downloaded update
 
             # Set window icons in multiple formats
             if ICON_PATH.exists():
@@ -47,6 +48,9 @@ class TacticalChristmasTree:
                         }},
                         exc_info=True
                     )
+
+            # Register close handler
+            self.root.protocol("WM_DELETE_WINDOW", self.on_close)
 
             # Initial language setting
             self.current_lang = 'en'
@@ -163,12 +167,24 @@ class TacticalChristmasTree:
                 exc_info=True
             )
 
+    def on_close(self):
+        """Handle application closing and trigger update if available."""
+        logger.debug("Application closing")
+
+        # First destroy the main window
+        self.root.destroy()
+
+        # Install update if available
+        if self.update_installer_path:
+            logger.info("Installing update after close")
+            install_update(self.update_installer_path)
+
     def run(self):
         """Run the main application loop."""
         try:
             logger.info("Starting application main loop")
-            # Check for updates
-            check_for_updates()
+            # Check for updates and store installer path if available
+            self.update_installer_path = check_for_updates()
             # Start main loop
             self.root.mainloop()
             logger.info("Application closed normally")
