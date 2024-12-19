@@ -8,9 +8,9 @@ logger = NiceLogger(__name__).get_logger()
 
 # Project information
 PROJECT_NAME = "TacticalChristmasTree"
-PROJECT_VERSION = "0.6.91"
+PROJECT_VERSION = "0.7.0"
 AUTHOR = "philornot"
-DESCRIPTION = "A customizable Christmas tree drawing application"
+DESCRIPTION = "Deploy your own customizable ChristmasTree.png!"
 GITHUB_REPO = "https://github.com/philornot/TacticalChristmasTree"
 
 # Directory structure
