@@ -109,7 +109,11 @@ def check_for_updates():
                 installer_path = download_update(installer_asset['browser_download_url'])
                 if installer_path:
                     logger.info("Update downloaded successfully")
-                    return installer_path
+                    return {
+                        'installer_path': installer_path,
+                        'version': latest_version,
+                        'release_url': latest_release['html_url']
+                    }
             else:
                 logger.warning("No installer found in release assets")
         else:
