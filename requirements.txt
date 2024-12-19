@@ -1,2 +1,4 @@
-sv-ttk~=2.6.0
 pillow~=11.0.0
+requests~=2.32.3
+packaging~=24.2
+coloredlogs~=15.0.1
