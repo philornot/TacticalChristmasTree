@@ -1,5 +1,6 @@
 TRANSLATIONS = {
     'en': {
+        'window_title': 'Tactical Christmas Tree',
         'height': 'Height:',
         'width': 'Width:',
         'layers': 'Layers:',
@@ -11,6 +12,7 @@ TRANSLATIONS = {
         'switch_to_en': 'English'
     },
     'pl': {
+        'window_title': 'Taktyczna Choinka',
         'height': 'Wysokość:',
         'width': 'Szerokość:',
         'layers': 'Warstwy:',

@@ -10,7 +10,7 @@ from translations import TRANSLATIONS
 class TacticalChristmasTree:
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("Tactical Christmas Tree")
+        self.root.title(TRANSLATIONS['en']['window_title'])
         self.root.geometry("800x800")
 
         # Initial language setting
@@ -44,6 +44,9 @@ class TacticalChristmasTree:
     def toggle_language(self):
         # Switch language
         self.current_lang = 'pl' if self.current_lang == 'en' else 'en'
+
+        # Update window title
+        self.root.title(TRANSLATIONS[self.current_lang]['window_title'])
 
         # Update button text
         self.lang_button.config(
