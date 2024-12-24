@@ -31,7 +31,7 @@ class TacticalChristmasTree:
             logger.debug("Creating main window")
             self.root = tk.Tk()
             self.root.title(TRANSLATIONS['en']['window_title'])
-            self.root.geometry("800x800")
+            self.root.geometry("800x830")
             logger.debug("Main window created",
                          extra={'metadata': {'title': self.root.title(), 'geometry': self.root.geometry()}})
 
