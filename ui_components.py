@@ -7,7 +7,11 @@ from settings import (
     MIN_HEIGHT, MAX_HEIGHT,
     MIN_WIDTH, MAX_WIDTH,
     MIN_LAYERS, MAX_LAYERS,
-    DEFAULT_COLOR
+    MIN_ORNAMENTS, MAX_ORNAMENTS,
+    MIN_CHAINS, MAX_CHAINS,
+    DEFAULT_COLOR,
+    DEFAULT_ORNAMENTS,
+    DEFAULT_CHAINS
 )
 from translations import TRANSLATIONS
 
@@ -32,6 +36,8 @@ class UIComponents:
         self.width_var = tk.IntVar(value=200)
         self.layers_var = tk.IntVar(value=5)
         self.color_var = tk.StringVar(value=DEFAULT_COLOR)
+        self.ornaments_var = tk.IntVar(value=DEFAULT_ORNAMENTS)
+        self.chains_var = tk.IntVar(value=DEFAULT_CHAINS)
 
         self._create_controls()
         logger.debug("UI components initialized successfully")
@@ -96,7 +102,9 @@ class UIComponents:
                 'height': self.height_var.get(),
                 'width': self.width_var.get(),
                 'layers': self.layers_var.get(),
-                'color': self.color_var.get() or DEFAULT_COLOR
+                'color': self.color_var.get() or DEFAULT_COLOR,
+                'ornaments': self.ornaments_var.get(),
+                'chains': self.chains_var.get()
             }
             logger.debug("Retrieved parameters", extra={'metadata': params})
             return params
@@ -112,7 +120,9 @@ class UIComponents:
                 'height': 300,
                 'width': 200,
                 'layers': 5,
-                'color': DEFAULT_COLOR
+                'color': DEFAULT_COLOR,
+                'ornaments': DEFAULT_ORNAMENTS,
+                'chains': DEFAULT_CHAINS
             }
 
     def _create_controls(self):
@@ -120,16 +130,16 @@ class UIComponents:
         try:
             logger.debug("Creating UI controls")
 
-            # Store references to labels and buttons for language updates
-            self.labels = {
-                'height': ttk.Label(
-                    self.frame,
-                    text=TRANSLATIONS[self.current_lang]['height']
-                )
-            }
+            # Store references to labels for language updates
+            self.labels = {}
 
             # Height control
-            self.labels['height'].grid(row=0, column=0, padx=5, pady=5)
+            self.labels['height'] = ttk.Label(
+                self.frame,
+                text=TRANSLATIONS[self.current_lang]['height']
+            )
+            self.labels['height'].grid(row=0, column=0, padx=5, pady=5, sticky='w')
+
             height_scale = ttk.Scale(
                 self.frame,
                 from_=MIN_HEIGHT,
@@ -137,14 +147,15 @@ class UIComponents:
                 variable=self.height_var,
                 orient="horizontal"
             )
-            height_scale.grid(row=0, column=1, padx=5, pady=5)
+            height_scale.grid(row=0, column=1, padx=5, pady=5, sticky='ew')
 
             # Width control
             self.labels['width'] = ttk.Label(
                 self.frame,
                 text=TRANSLATIONS[self.current_lang]['width']
             )
-            self.labels['width'].grid(row=1, column=0, padx=5, pady=5)
+            self.labels['width'].grid(row=1, column=0, padx=5, pady=5, sticky='w')
+
             width_scale = ttk.Scale(
                 self.frame,
                 from_=MIN_WIDTH,
@@ -152,14 +163,15 @@ class UIComponents:
                 variable=self.width_var,
                 orient="horizontal"
             )
-            width_scale.grid(row=1, column=1, padx=5, pady=5)
+            width_scale.grid(row=1, column=1, padx=5, pady=5, sticky='ew')
 
             # Layers control
             self.labels['layers'] = ttk.Label(
                 self.frame,
                 text=TRANSLATIONS[self.current_lang]['layers']
             )
-            self.labels['layers'].grid(row=2, column=0, padx=5, pady=5)
+            self.labels['layers'].grid(row=2, column=0, padx=5, pady=5, sticky='w')
+
             layers_scale = ttk.Scale(
                 self.frame,
                 from_=MIN_LAYERS,
@@ -167,28 +179,65 @@ class UIComponents:
                 variable=self.layers_var,
                 orient="horizontal"
             )
-            layers_scale.grid(row=2, column=1, padx=5, pady=5)
+            layers_scale.grid(row=2, column=1, padx=5, pady=5, sticky='ew')
 
             # Color control
             self.labels['color'] = ttk.Label(
                 self.frame,
                 text=TRANSLATIONS[self.current_lang]['color']
             )
-            self.labels['color'].grid(row=3, column=0, padx=5, pady=5)
+            self.labels['color'].grid(row=3, column=0, padx=5, pady=5, sticky='w')
+
             self.color_button = ttk.Button(
                 self.frame,
                 text=TRANSLATIONS[self.current_lang]['choose_color'],
                 command=self._choose_color
             )
-            self.color_button.grid(row=3, column=1, padx=5, pady=5)
+            self.color_button.grid(row=3, column=1, padx=5, pady=5, sticky='ew')
+
+            # Ornaments control
+            self.labels['ornaments'] = ttk.Label(
+                self.frame,
+                text=TRANSLATIONS[self.current_lang]['ornaments']
+            )
+            self.labels['ornaments'].grid(row=4, column=0, padx=5, pady=5, sticky='w')
+
+            ornaments_scale = ttk.Scale(
+                self.frame,
+                from_=MIN_ORNAMENTS,
+                to=MAX_ORNAMENTS,
+                variable=self.ornaments_var,
+                orient="horizontal"
+            )
+            ornaments_scale.grid(row=4, column=1, padx=5, pady=5, sticky='ew')
+
+            # Chains control
+            self.labels['chains'] = ttk.Label(
+                self.frame,
+                text=TRANSLATIONS[self.current_lang]['chains']
+            )
+            self.labels['chains'].grid(row=5, column=0, padx=5, pady=5, sticky='w')
+
+            chains_scale = ttk.Scale(
+                self.frame,
+                from_=MIN_CHAINS,
+                to=MAX_CHAINS,
+                variable=self.chains_var,
+                orient="horizontal"
+            )
+            chains_scale.grid(row=5, column=1, padx=5, pady=5, sticky='ew')
 
             # Draw button
             self.draw_button = ttk.Button(
                 self.frame,
                 text=TRANSLATIONS[self.current_lang]['draw_tree'],
-                command=self.draw_callback
+                command=self.draw_callback,
+                style='Accent.TButton'
             )
-            self.draw_button.grid(row=4, column=0, columnspan=2, pady=10)
+            self.draw_button.grid(row=6, column=0, columnspan=2, pady=20)
+
+            # Configure grid column weights for proper scaling
+            self.frame.grid_columnconfigure(1, weight=1)
 
             logger.debug("UI controls created successfully")
 

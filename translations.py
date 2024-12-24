@@ -13,7 +13,9 @@ TRANSLATIONS = {
         'update_available': 'New version {version} available!',
         'update_info': 'Update will be installed automatically on exit',
         'update_now': 'Update now',
-        'see_release': 'See release notes'
+        'see_release': 'See release notes',
+        'ornaments': 'Ornaments:',  
+        'chains': 'Chains:'         
     },
     'pl': {
         'window_title': 'Taktyczna Choinka',
@@ -29,6 +31,8 @@ TRANSLATIONS = {
         'update_available': 'Dostępna nowa wersja {version}!',
         'update_info': 'Aktualizacja zostanie zainstalowana automatycznie po zamknięciu',
         'update_now': 'Aktualizuj teraz',
-        'see_release': 'Zobacz szczegóły wydania'
+        'see_release': 'Zobacz szczegóły wydania',
+        'ornaments': 'Bombki:',     
+        'chains': 'Łańcuchy:'       
     }
 }

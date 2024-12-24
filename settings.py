@@ -8,7 +8,7 @@ logger = NiceLogger(__name__).get_logger()
 
 # Project information
 PROJECT_NAME = "TacticalChristmasTree"
-PROJECT_VERSION = "0.7.0"
+PROJECT_VERSION = "0.7.1"
 AUTHOR = "philornot"
 DESCRIPTION = "Deploy your own customizable ChristmasTree.png!"
 GITHUB_REPO = "https://github.com/philornot/TacticalChristmasTree"
@@ -44,6 +44,8 @@ if not ICON_PATH.exists() or not ICON_PNG_PATH.exists():
 # Application settings
 WINDOW_SIZE = "800x800"
 DEFAULT_LANGUAGE = "en"
+
+# Tree size settings
 MIN_HEIGHT = 100
 MAX_HEIGHT = 350
 MIN_WIDTH = 100
@@ -51,6 +53,15 @@ MAX_WIDTH = 300
 MIN_LAYERS = 3
 MAX_LAYERS = 8
 DEFAULT_COLOR = "#2E8B57"
+
+# Decoration settings
+MIN_ORNAMENTS = 0  # Minimum number of ornaments
+MAX_ORNAMENTS = 15  # Maximum number of ornaments
+DEFAULT_ORNAMENTS = 5  # Default number of ornaments
+
+MIN_CHAINS = 0  # Minimum number of chains
+MAX_CHAINS = 8  # Maximum number of chains
+DEFAULT_CHAINS = 3  # Default number of chains
 
 # Logging settings
 LOG_FILE_MAX_SIZE = 10 * 1024 * 1024  # 10MB
