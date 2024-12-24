@@ -1,11 +1,8 @@
-# tree_drawer.py
-import tkinter as tk
 import random
-import math
+import tkinter as tk
 
 from logger import NiceLogger
 
-# Initialize logger
 logger = NiceLogger(__name__).get_logger()
 
 
@@ -22,7 +19,6 @@ class TreeDrawer:
 
     def get_random_color(self):
         """Generate a random bright color for decorations."""
-        # Using brighter colors for decorations
         colors = [
             '#FF0000', '#FFD700', '#00FF00', '#FF69B4', '#00FFFF',
             '#FF4500', '#9400D3', '#FF1493', '#00FF7F', '#FF8C00'
@@ -62,16 +58,6 @@ class TreeDrawer:
             outline='#1f1f1f'
         )
 
-    def draw_chain_segment(self, x1, y1, x2, y2):
-        """Draw a segment of a decorative chain."""
-        color = self.get_random_color()
-        self.canvas.create_line(
-            x1, y1, x2, y2,
-            fill=color,
-            width=2,
-            smooth=True
-        )
-
     def clear_canvas(self):
         """Clear the canvas."""
         logger.debug("Clearing canvas")
@@ -88,7 +74,6 @@ class TreeDrawer:
             layers = params['layers']
             color = params['color']
             ornaments = params.get('ornaments', 5)
-            chains = params.get('chains', 3)
 
             # Center the tree on the canvas
             canvas_width = self.canvas.winfo_width()
@@ -176,33 +161,6 @@ class TreeDrawer:
                 ):
                     self.draw_ornament(ornament_x, ornament_y)
                     ornaments_placed += 1
-
-            # Add chains
-            for _ in range(chains):
-                # Select two different layers for chain endpoints
-                layer_indices = sorted(random.sample(range(len(layer_triangles)), 2))
-                start_layer = layer_triangles[layer_indices[0]]
-                end_layer = layer_triangles[layer_indices[1]]
-
-                # Create a wavy chain effect
-                segments = 6
-                prev_x = start_layer['center_x']
-                prev_y = start_layer['y_bottom'] - random.uniform(0.2, 0.8) * (
-                            start_layer['y_bottom'] - start_layer['y_top'])
-
-                for s in range(1, segments + 1):
-                    progress = s / segments
-
-                    # Calculate next point with controlled randomness
-                    next_x = start_layer['center_x'] + (random.uniform(-0.3, 0.3) * start_layer['width'])
-                    next_y = start_layer['y_bottom'] - (progress * (start_layer['y_bottom'] - end_layer['y_bottom']))
-
-                    # Add some wave effect
-                    wave_offset = math.sin(progress * math.pi) * 10
-                    next_x += wave_offset
-
-                    self.draw_chain_segment(prev_x, prev_y, next_x, next_y)
-                    prev_x, prev_y = next_x, next_y
 
             logger.debug("Tree drawn successfully with decorations")
 

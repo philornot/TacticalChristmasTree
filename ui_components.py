@@ -8,10 +8,8 @@ from settings import (
     MIN_WIDTH, MAX_WIDTH,
     MIN_LAYERS, MAX_LAYERS,
     MIN_ORNAMENTS, MAX_ORNAMENTS,
-    MIN_CHAINS, MAX_CHAINS,
     DEFAULT_COLOR,
-    DEFAULT_ORNAMENTS,
-    DEFAULT_CHAINS
+    DEFAULT_ORNAMENTS
 )
 from translations import TRANSLATIONS
 
@@ -37,7 +35,6 @@ class UIComponents:
         self.layers_var = tk.IntVar(value=5)
         self.color_var = tk.StringVar(value=DEFAULT_COLOR)
         self.ornaments_var = tk.IntVar(value=DEFAULT_ORNAMENTS)
-        self.chains_var = tk.IntVar(value=DEFAULT_CHAINS)
 
         self._create_controls()
         logger.debug("UI components initialized successfully")
@@ -103,8 +100,7 @@ class UIComponents:
                 'width': self.width_var.get(),
                 'layers': self.layers_var.get(),
                 'color': self.color_var.get() or DEFAULT_COLOR,
-                'ornaments': self.ornaments_var.get(),
-                'chains': self.chains_var.get()
+                'ornaments': self.ornaments_var.get()
             }
             logger.debug("Retrieved parameters", extra={'metadata': params})
             return params
@@ -121,8 +117,7 @@ class UIComponents:
                 'width': 200,
                 'layers': 5,
                 'color': DEFAULT_COLOR,
-                'ornaments': DEFAULT_ORNAMENTS,
-                'chains': DEFAULT_CHAINS
+                'ornaments': DEFAULT_ORNAMENTS
             }
 
     def _create_controls(self):
@@ -211,22 +206,6 @@ class UIComponents:
             )
             ornaments_scale.grid(row=4, column=1, padx=5, pady=5, sticky='ew')
 
-            # Chains control
-            self.labels['chains'] = ttk.Label(
-                self.frame,
-                text=TRANSLATIONS[self.current_lang]['chains']
-            )
-            self.labels['chains'].grid(row=5, column=0, padx=5, pady=5, sticky='w')
-
-            chains_scale = ttk.Scale(
-                self.frame,
-                from_=MIN_CHAINS,
-                to=MAX_CHAINS,
-                variable=self.chains_var,
-                orient="horizontal"
-            )
-            chains_scale.grid(row=5, column=1, padx=5, pady=5, sticky='ew')
-
             # Draw button
             self.draw_button = ttk.Button(
                 self.frame,
@@ -234,7 +213,7 @@ class UIComponents:
                 command=self.draw_callback,
                 style='Accent.TButton'
             )
-            self.draw_button.grid(row=6, column=0, columnspan=2, pady=20)
+            self.draw_button.grid(row=5, column=0, columnspan=2, pady=20)
 
             # Configure grid column weights for proper scaling
             self.frame.grid_columnconfigure(1, weight=1)
